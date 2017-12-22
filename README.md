@@ -1,3 +1,7 @@
 # gulp-rgswig
 
-Plugin for compile swig templates
+> Version for old site
+
+Plugin for compile swig templates.
+
+Use for specific file structure and RGB processor.
