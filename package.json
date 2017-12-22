@@ -1,17 +1,23 @@
 {
   "name": "gulp-rgswig",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "main": "index.js",
   "description": "Swig Plugin for Gulp from rg.ru developers",
   "keywords": [
     "gulpplugin",
+    "gulp",
+    "plugin",
     "swig"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nanomen/gulp-rgswig.git"
+    "url": "git+https://github.com/RGRU/gulp-rgswig.git"
   },
   "author": {
-    "name": "RG team"
+    "name": "RGRU team | nanomen <dev@rg.ru> (https://github.com/RGRU/)"
+  },
+  "bugs": {
+    "url": "https://github.com/RGRU/gulp-rgswig/issues"
   },
   "dependencies": {
     "event-stream": "~3.0.15",
@@ -22,11 +28,7 @@
     "lodash": "^3.10.1",
     "swig": "1.4.*"
   },
-  "main": "index.js",
   "engines": {
     "node": ">= 0.4.0"
-  },
-  "bugs": {
-    "url": "https://github.com/nanomen/gulp-rgswig/issues"
   }
 }
