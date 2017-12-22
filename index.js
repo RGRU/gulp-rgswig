@@ -117,7 +117,7 @@ var parentDir = function (path) {
 // Find template file
 var findTmpl = function (dirPath) {
   var targetDir = null
-  var tmplFile = 'route.html'
+  var tmplFile = 'templates.swig'
   var targetFile = null
 
   // #1 Find setup
@@ -153,7 +153,7 @@ var findTmpl = function (dirPath) {
 // Find crossdata file
 var findCrossData = function (dirPath) {
   var targetDir = dirPath
-  var crossData = '/crosspages/page.js'
+  var crossData = '/includes/page.js'
   var targetFile = null
 
   // #1 Find setup
