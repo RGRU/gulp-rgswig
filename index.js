@@ -137,8 +137,8 @@ var findTmpl = function (dirPath) {
       return targetFile
     } else { // if not file, go to default template
       // #3 Find setup
-      targetDir = parentDir(parentDir(targetDir))
-      targetFile = targetDir + '/' + tmplFile
+      targetDir = parentDir(parentDir(parentDir(targetDir)))
+      targetFile = targetDir + '/pages/' + tmplFile
 
       // #3 Find process
       if (resExistsSync(targetFile)) {
@@ -175,8 +175,8 @@ var findCrossData = function (dirPath) {
       return targetFile
     } else { // if not file, go to default template
       // #3 Find setup
-      targetDir = parentDir(parentDir(targetDir))
-      targetFile = targetDir + '/data' + crossData
+      targetDir = parentDir(parentDir(parentDir(targetDir)))
+      targetFile = targetDir + '/pages/data' + crossData
 
       // #3 Find process
       if (resExistsSync(targetFile)) {
