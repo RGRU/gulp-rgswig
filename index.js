@@ -4,6 +4,10 @@
  *
  */
 
+// Нормализация слешей в unix
+const __pathDelimeter__ = '/'
+const normalizeDelimeter = str => str.replace(/\\+/g, __pathDelimeter__)
+
 var fs = require('fs')
 var path = require('path')
 var es = require('event-stream')
@@ -73,7 +77,7 @@ swig.setFilter('reverse', function (_input) {
 // подключает RGB блок и отдает его в шаблон
 swig.setFilter('getRGB', function (rgb) {
   // Подключаем RGB и отдаем данные
-  return require(pathMap._ + '/rgb')(rgb)
+  return require(`${pathMap._}${__pathDelimeter__}rgb`)(rgb)
 })
 
 // Кастомный фильтр
@@ -111,7 +115,7 @@ var resExistsSync = function (path) {
 
 // Get parent folder
 var parentDir = function (path) {
-  return path.split('/').slice(0, -1).join('/')
+  return normalizeDelimeter(path).split(__pathDelimeter__).slice(0, -1).join(__pathDelimeter__)
 }
 
 // Find template file
@@ -122,7 +126,7 @@ var findTmpl = function (dirPath) {
 
   // #1 Find setup
   targetDir = parentDir(dirPath)
-  targetFile = targetDir + '/' + tmplFile
+  targetFile = `${targetDir}${__pathDelimeter__}${tmplFile}`
 
   // #1 Find process
   if (resExistsSync(targetFile)) {
@@ -130,7 +134,7 @@ var findTmpl = function (dirPath) {
   } else { // if not file, go to parent dir
     // #2 Find setup
     targetDir = parentDir(targetDir)
-    targetFile = targetDir + '/' + tmplFile
+    targetFile = `${targetDir}${__pathDelimeter__}${tmplFile}`
 
     // #2 Find process
     if (resExistsSync(targetFile)) {
@@ -138,7 +142,7 @@ var findTmpl = function (dirPath) {
     } else { // if not file, go to default template
       // #3 Find setup
       targetDir = parentDir(parentDir(targetDir))
-      targetFile = targetDir + '/' + tmplFile
+      targetFile = `${targetDir}${__pathDelimeter__}${tmplFile}`
 
       // #3 Find process
       if (resExistsSync(targetFile)) {
@@ -153,7 +157,7 @@ var findTmpl = function (dirPath) {
 // Find crossdata file
 var findCrossData = function (dirPath) {
   var targetDir = dirPath
-  var crossData = '/crosspages/page.js'
+  var crossData = `${__pathDelimeter__}crosspages${__pathDelimeter__}page.js`
   var targetFile = null
 
   // #1 Find setup
@@ -176,7 +180,7 @@ var findCrossData = function (dirPath) {
     } else { // if not file, go to default template
       // #3 Find setup
       targetDir = parentDir(parentDir(targetDir))
-      targetFile = targetDir + '/data' + crossData
+      targetFile = `${targetDir}${__pathDelimeter__}data${__pathDelimeter__}${crossData}`
 
       // #3 Find process
       if (resExistsSync(targetFile)) {
@@ -202,24 +206,24 @@ module.exports = function (userOptions) {
    */
   var
 
-      // default options
-      options = {
+    // default options
+    options = {
 
-        // Custom options for swig
-        swigOpts: {
-          varControls: ['{[', ']}']
-        },
+      // Custom options for swig
+      swigOpts: {
+        varControls: ['{[', ']}']
+      },
 
-        // Param module
-        param: {
+      // Param module
+      param: {
 
-          // Process type
-          compileType: 'tmpl',
+        // Process type
+        compileType: 'tmpl',
 
-          // Ext template
-          extFile: '.html'
-        }
+        // Ext template
+        extFile: '.html'
       }
+    }
 
   // Update options
   _.merge(options, userOptions)
@@ -362,7 +366,7 @@ module.exports = function (userOptions) {
             tmplData = _.extend({}, tmplData, { styleData: styleData })
           }
         } catch (err) {
-          console.log(file.path, 'sass error. it is ok :)')
+          console.log(file.path, 'sass error. But compilling in process')
 
           // fs.writeFile('/www/app/branches/css/temp/errors/sassError' + Math.random().toFixed(5)*100000 + '.js', JSON.stringify(file.path, false, '\t'), function(err) {
 
